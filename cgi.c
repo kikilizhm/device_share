@@ -15,7 +15,10 @@
 sqlite3 *g_gb = 0;
 int main(void)
 {
-    printf("Content-Type: text/html\n\n");
+    printf("Set-Cookie: username=%s;\nSet-Cookie: password=%s;\n","lzm","admin");
+    printf("Content-Type: text/html");
+    //printf("Set-Cookie: name=lzm;");
+    printf("\n\n");
     printf("<html><head>");
     printf("<meta charset=\"utf-8\">");
     printf("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
@@ -28,6 +31,15 @@ int main(void)
     
 }
 
+void user_check(void)
+{
+    char *cookie_tmp = NULL;
+
+    cookie_tmp = getenv("HTTP_COOKIE");
+    if(cookie_tmp != NULL){
+        printf("cookie:%s\r\n", cookie_tmp);
+    }
+}
 
 void dis_rest(void)
 {
@@ -35,6 +47,12 @@ void dis_rest(void)
     char *r_method;
     char *http_buf=NULL;
     char *str = NULL;
+    char *cookie_tmp = NULL;
+
+    cookie_tmp = getenv("HTTP_COOKIE");
+    if(cookie_tmp != NULL){
+        printf("cookie:%s\r\n", cookie_tmp);
+    }
 
     r_method=getenv("REQUEST_METHOD");
     if(r_method != NULL) {
